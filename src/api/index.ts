@@ -18,7 +18,8 @@ export const alertRuleApi = {
 
 // Market Data
 export const marketApi = {
-  getAll: () => http.get<MarketPrice[]>('/market-data/all').then(r => r.data),
+  getAll: () =>
+    http.get<Record<string, MarketPrice>>('/market-data/all').then(r => Object.values(r.data)),
   getPrice: (symbol: string, type: string) =>
     http.get<MarketPrice>('/market-data', { params: { symbol, type } }).then(r => r.data),
 }
