@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import {
   Button, Drawer, Form, Input, InputNumber, message,
-  Popconfirm, Select, Switch, Table, Tag, Typography,
+  Popconfirm, Select, Switch, Table, Tag, Tooltip, Typography,
 } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
@@ -105,6 +105,23 @@ export default function AlertRules() {
               <Tag color={r.conditionType === 'ABOVE' ? 'red' : 'green'}>
                 {r.conditionType === 'ABOVE' ? '价格高于' : '价格低于'} ${Number(r.thresholdPrice).toLocaleString()}
               </Tag>
+            ),
+          },
+          {
+            title: '联系方式',
+            dataIndex: 'notifyTarget',
+            width: 200,
+            render: (v: string) => (
+              <Tooltip title={v}>
+                <span style={{
+                  display: 'inline-block', maxWidth: 180,
+                  overflow: 'hidden', textOverflow: 'ellipsis',
+                  whiteSpace: 'nowrap', verticalAlign: 'bottom',
+                  fontFamily: 'monospace', fontSize: 12,
+                }}>
+                  {v}
+                </span>
+              </Tooltip>
             ),
           },
           {

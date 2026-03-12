@@ -40,7 +40,7 @@ export default function App() {
           borderBottom: '1px solid #f0f0f0',
           color: '#666', fontSize: 13,
         }}>
-          market-monitor-ui — 实时市场预警系统
+          Market Monitor实时市场预警系统
         </Header>
 
         <Content style={{ background: '#f5f5f5', minHeight: 'calc(100vh - 64px)' }}>
