@@ -111,18 +111,27 @@ export default function AlertRules() {
             title: '联系方式',
             dataIndex: 'notifyTarget',
             width: 200,
-            render: (v: string) => (
-              <Tooltip title={v}>
-                <span style={{
-                  display: 'inline-block', maxWidth: 180,
-                  overflow: 'hidden', textOverflow: 'ellipsis',
-                  whiteSpace: 'nowrap', verticalAlign: 'bottom',
-                  fontFamily: 'monospace', fontSize: 12,
-                }}>
-                  {v}
-                </span>
-              </Tooltip>
-            ),
+            render: (v: string, r: AlertRule) => {
+              const maskToken = (url: string) => {
+                return url.replace(/(access_token=)([^&]+)/, (_, prefix, token) => {
+                  const tail = token.slice(-6)
+                  return `${prefix}****${tail}`
+                })
+              }
+              const display = r.notifyChannel === 'DINGTALK' ? maskToken(v) : v
+              return (
+                <Tooltip title={display}>
+                  <span style={{
+                    display: 'inline-block', maxWidth: 180,
+                    overflow: 'hidden', textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap', verticalAlign: 'bottom',
+                    fontFamily: 'monospace', fontSize: 12,
+                  }}>
+                    {display}
+                  </span>
+                </Tooltip>
+              )
+            },
           },
           {
             title: '通知方式',
